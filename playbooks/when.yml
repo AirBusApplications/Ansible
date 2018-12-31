@@ -1,0 +1,25 @@
+--- # WHEN Playbook Example
+- hosts: local
+  user: yahoo
+  become: yes
+  connection: ssh
+  
+  vars:
+    playbook_type: conditionalexample
+  vars_files:
+   - /home/yahoo/playbooks/conf/copyright.yml   # - is to refer any external thg
+   - /home/yahoo/playbooks/conf/webdefauts.yml
+
+  tasks:
+    - name: Install Apache Appropiate to the Distribution Type (RedHat)
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install Apache Appropiate to the Distribution Type (Debian/Ubuntu)
+      command:
+        name: httpd
+        state: present
+      when: ansible_os_family == "Debian"
+ 

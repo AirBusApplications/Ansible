@@ -1,0 +1,38 @@
+--- # My First YAML Playbook for Ansible
+- hosts: local      # target section 
+  user: yahoo       # who can use this playbook on Remote Server 
+  sudo: yes         # running with sudo rights
+  connection: ssh   # ssh or paramiko
+  gather_facts: no  # if we want to use one of the environment variables
+
+  vars:
+    playbook_version: 0.1b
+  vars_files:
+   - /home/yahoo/playbooks/conf/copyright.yml   # - is to refer any external thg
+   - /home/yahoo/playbooks/conf/webdefauts.yml
+  vars_prompt:      # this will prompt to the user
+    - name: Package_Name
+      prompt: Which Package to Install
+  tasks:
+    - name: Install HTTPD AppServer
+      yum: 
+        name: "{{ pkg_https }}"    # make sure to add space before and after the variable
+        state: present
+      async: 300
+      poll: 3
+      notify: 
+      - Restart HTTPD
+
+    - name: Ensure the Telnet client is Present
+      yum:
+        name: telnet
+        state: present
+    
+    - name: Installing dynamic Package "{{ Package_Name  }}"
+      yum:
+        name: "{{ Package_Name  }}"
+        state: present
+ 
+  handlers:
+   - name: Restart HTTPD
+     action: service name=httpd state=restarted

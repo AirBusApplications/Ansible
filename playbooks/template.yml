@@ -1,0 +1,12 @@
+--- # Loop PLAYBOOK Example
+- hosts: local
+  user: yahoo
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+
+ tasks:
+   - name: 
+   
+   - name:
+ 

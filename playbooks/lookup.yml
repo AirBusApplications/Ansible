@@ -1,0 +1,15 @@
+--- # LOOKUP PlayBOOK Example
+- hosts: local
+  user: yahoo
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  
+  tasks:
+  - debug: 
+      msg: "{{ lookup('env','HOME') }} is the value listed"   
+  
+  - debug: 
+     msg: "Lookup the keyword {{lookup('csvfile','Bruce Yayne file=lookup.csv delimiter=, default=NOMATCH') }}"
+
+

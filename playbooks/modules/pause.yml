@@ -1,0 +1,16 @@
+---  # the Pause Module -------
+- hosts: node
+  sudo: yes
+  gather_facts: no
+  tasks:
+  - name: Install HTTPD
+    yum:
+      name: httpd
+      state: latest
+  - name: Pausing
+    pause: 
+      prompt: "Make sure the installation is complete...."
+  - name: Verify tree installation
+    yum: 
+      name: tree
+      state: latest 

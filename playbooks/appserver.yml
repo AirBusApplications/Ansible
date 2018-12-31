@@ -1,0 +1,14 @@
+- hosts: local
+  vars:
+    author_name: yahoo
+  vars_files: 
+   - /home/yahoo/playbooks/vars.yml
+
+  tasks:
+    - name: Install httpd server on Local Server
+      yum: 
+        pkg: httpd 
+        state: installed 
+        update_cache: true
+ 
+

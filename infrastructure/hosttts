@@ -1,0 +1,8 @@
+[local]
+localhost
+
+#[master]
+#18.206.39.90 kubernetes_role="master"
+
+[node]
+75.101.229.65 kubernetes_role="node"

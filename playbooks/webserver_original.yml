@@ -1,0 +1,29 @@
+--- # Outline to Playbook translation
+- hosts: local
+  user: yahoo
+  sudo: yes
+  gather_facts: no
+  
+  tasks:
+  - name: date/time stamp of when the playbook starts
+    raw: /usr/bin/date > /home/yahoo/infrastructure/logs/playbook_start.log
+  - name: Install the apache
+    yum: 
+      name: httpd 
+      state: latest
+  - name: Start the web server
+    service: 
+      name: httpd 
+      state: restarted
+  - name: Verify that the webservice is running
+    command: systemctl status httpd
+    register: result
+  - debug: var=result
+  - name: Install client software - telnet
+    yum: 
+      name: telnet 
+      state: latest
+  - name: Log all the packages install on the system
+    raw: yum list installed > /home/yahoo/infrastructure/logs/installed.log
+  - name:  date/time stamp for when the playbook ends
+    raw: /usr/bin/date > /home/yahoo/infrastructure/logs/playbook_end.log

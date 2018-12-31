@@ -1,0 +1,23 @@
+--- # Tags PLAYBOOK Example
+- hosts: local
+  user: yahoo
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+    - name: Install the packages
+      yum:
+        name: "{{ item }}" 
+        state: present
+      with_items: 
+        - telnet
+        - httpd
+      tags:
+        - packages
+       
+    - name: Verify the telnet was installed
+      raw: yum list installed | grep telnet > /home/yahoo/pkg.log
+      tags:
+        - verification
+        - always   # just using this will make this task to run always 

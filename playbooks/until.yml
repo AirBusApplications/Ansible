@@ -1,0 +1,22 @@
+--- # UNTIL PLAYBOOK Example
+- hosts: local
+  user: yahoo
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+    - name: Installing Apache Web Server
+      yum:
+        name: httpd
+        state: latest
+
+    - name: Verify Service Status
+      shell: systemctl status httpd
+      register: result
+      until: result.stdout.find("active (running)") != -1
+      retries: 5
+      delay: 5
+    - debug:
+        var: result
+

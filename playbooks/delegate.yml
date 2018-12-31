@@ -1,0 +1,15 @@
+--- # DELEGATE TO FUNCTION DEMO
+- hosts: node
+  user: yahoo
+  become: yes
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+  - name: Run a Remote Ping on the node server
+    command: ping -c 4 34.229.241.19 > /home/yahoo/ping.out
+    delegate_to: 3.83.121.232
+  - name: Install a package
+    yum: 
+      name: httpd
+      state: latest

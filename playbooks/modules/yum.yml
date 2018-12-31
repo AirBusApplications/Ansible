@@ -1,0 +1,23 @@
+---  # the YUM  Module -------
+- hosts: node
+  sudo: yes
+  user: yahoo
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+  - name: Install HTTPD
+    yum:
+      name: httpd
+      state: latest
+
+  - name: Remove
+    yum:
+      name: httpd
+      state: absent
+  
+  - name: Update YUM Upgrade
+    yum: 
+      name: *
+      state: latest 
+

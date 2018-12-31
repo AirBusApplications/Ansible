@@ -1,0 +1,11 @@
+- name: Install the Apache Web server
+  yum: 
+    name: httpd
+    state: latest
+  notify:
+  - Restart HTTPD
+- name: Install the tree
+  yum:
+    name: tree
+    state: latest
+

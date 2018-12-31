@@ -1,0 +1,10 @@
+--- # LOcAL ACTION PLAYBOOK
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+  
+  tasks:
+    - name: INstall a Telnet Client
+      yum: 
+        name: telnet
+        state: latest 

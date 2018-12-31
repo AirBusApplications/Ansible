@@ -1,0 +1,11 @@
+--- # Full Include Task example
+- hosts: local
+  become: yes
+  user: yahoo
+  connection: ssh
+  gather_facts: no
+  
+  tasks:
+    - include: /home/yahoo/playbooks/plays/packages.yml
+    - name: Verify the telnet package is installed
+      raw: yum list installed | grep telnet > /home/yahoo/pkgs.log

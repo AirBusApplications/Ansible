@@ -1,0 +1,8 @@
+- name: Install the telnet client
+  yum: 
+    name: httpd
+    state: latest
+- name: Install the tree 
+  yum: 
+    name: tree
+    state: present

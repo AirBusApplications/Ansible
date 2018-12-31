@@ -1,0 +1,9 @@
+- hosts: remote
+  become: yes
+
+  vars:
+    kubernetes_allow_pods_on_master: False
+
+  roles:
+    - geerlingguy.docker
+    - geerlingguy.kubernetes
