@@ -1,0 +1,9 @@
+--- 
+- hosts: node
+  become: yes
+
+  vars:
+    apache_server_admin: exaple.com   # Here we can pass the vars parameter
+
+  roles:
+    - apache
