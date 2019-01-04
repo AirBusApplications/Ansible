@@ -2,7 +2,7 @@
 localhost
 
 [master]
-3.84.13.168 kubernetes_role="master"
+3.84.21.75 kubernetes_role="master"
 
 [node]
-54.86.105.86 kubernetes_role="node"
+34.201.244.153 kubernetes_role="node"
