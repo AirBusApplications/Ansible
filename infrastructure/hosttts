@@ -6,3 +6,4 @@ localhost
 
 [node]
 34.201.244.153 kubernetes_role="node"
+54.86.218.229 kubernetes_role="node"
