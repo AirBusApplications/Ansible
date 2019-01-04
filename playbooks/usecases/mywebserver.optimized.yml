@@ -1,0 +1,66 @@
+--- # build a Apache web Server
+- hosts: node
+  user: yahoo
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  vars:
+    apache_pkg: httpd
+    distribution: "{{ansible_os_family}}"
+    apache_version: 2.4
+    apache_dir: /var/www/sample
+    apache_fqdn: 54.86.105.86
+  tasks: 
+   - name: Install the websever Package
+     yum: 
+       name: "{{ apache_pkg }}"
+       state: latest
+
+   - name: Create the webserver directory
+     file:
+       path: "{{ apache_dir }}"
+       state: directory
+       mode: 644
+
+   - name: COpy the Apache configuration file to remote host
+     copy:
+       src: /home/yahoo/Ansible/playbooks/files/httpd.conf.template
+       dest: /etc/httpd/conf/
+       owner: root
+       group: root
+       mode: 644
+  
+   - name: Create the VHOST.D Directory on the remote server
+     file: 
+       path: /etc/httpd/vhost.d 
+       state: directory
+       mode: 644
+     register: output
+   - debug: msg= "Register output is {{output}}"
+
+   - name: Copy and untar the source for the site
+     copy:
+       src: /home/yahoo/Ansible/playbooks/files/default.conf.template
+       dest: /etc/httpd/vhost.d/file.conf
+       owner: root
+       group: root
+       mode: 644
+     notify:
+      - TestHttp   
+      - StartHttpd
+      - TestHttp
+
+
+  handlers: 
+   - name: Restart Httpd Service
+     service:
+       name: "{{ apache_pkg }}"
+       state: restarted
+     listen: "StartHttpd"
+
+   - name: Test the Http service
+     shell: curl http://{{apache_fqdn}}
+     register: test
+     debug: msg1= "The result is {{test}}"      
+     listen: "TestHttp"

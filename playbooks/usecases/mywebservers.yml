@@ -1,0 +1,58 @@
+--- # build a Apache web Server
+- hosts: node
+  user: yahoo
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  vars:
+    apache_pkg: https
+    distribution: redhat
+    apache_version: 2.4
+    apache_dir: /var/www/sample
+    apache_fqdn: ec2-34-226-221-160.compute-1.amazonaws.com
+  tasks: 
+   - name: Install the websever Package
+     yum: 
+       name: httpd
+       state: latest
+
+   - name: Create the webserver directory
+     file:
+       path: /var/www/sample 
+       state: directory
+       mode: 644
+
+   - name: COpy the Apache configuration file to remote host
+     copy:
+       src: /home/yahoo/Ansible/playbooks/files/httpd.conf.template
+       dest: /etc/httpd/conf/
+       owner: root
+       group: root
+       mode: 644
+  
+   - name: Create the VHOST.D Directory on the remote server
+     file: 
+       path: /etc/httpd/vhost.d 
+       state: directory
+       mode: 644
+
+   - name: Copy and untar the source for the site
+     copy:
+       src: /home/yahoo/Ansible/playbooks/files/default.conf.template
+       dest: /etc/httpd/vhost.d/file.conf
+       owner: root
+       group: root
+       mode: 644
+ 
+   - name: Start the webserver
+     service:
+       name: httpd
+       state: started
+
+   - name: Test the webserver
+     shell: curl http://54.86.105.86
+     register: result
+
+   - name: Dispplay Resutlt
+     debug: var=result      

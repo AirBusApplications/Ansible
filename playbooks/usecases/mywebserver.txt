@@ -1,0 +1,32 @@
+- Build an ApacheWebserver
+- Deploy the webserver with the ansible user
+- ANsible user uses sudo
+- connection type ssh rather than parimiko
+- leave gathering of facts on
+
+- Info Needed
+  -apache wen server package
+  - distribution running on 
+  - apache version
+  - need the wenserver directory customized
+  - what is the site name
+
+- What needs to be done:
+  - Install the apache wen server in th remote system
+ - create the web server directory
+ - webserver direcotry has proper ownership
+ - configuration of apache
+   - copy the http configuration file
+   - setup the vhost directory
+   - any any ssl keys if needed
+ - copy the site code to the directory
+ - start the apache service
+ - add/ enable any modules needed
+   - mysql/mariadb
+   - ssl
+   - mod/rewrite
+  -  restart the apache service
+- Test
+  - usning lynx or telnet. test the web service is running
+   - waitfor port 80 to be listening 
+

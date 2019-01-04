@@ -5,4 +5,4 @@ localhost
 3.84.13.168 kubernetes_role="master"
 
 [node]
-34.226.221.160 kubernetes_role="node"
+54.86.105.86 kubernetes_role="node"

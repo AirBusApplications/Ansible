@@ -1,0 +1,19 @@
+---
+- hosts: node
+  user: yahoo
+  become: yes
+  connection: ssh
+  gather_facts: yes
+
+  pre_tasks:
+  - name: When did the role start
+    raw: date > /home/yahoo/startrole.log
+
+  roles:
+  - redhat.apacheserver
+
+
+  post_tasks:
+  - name: When did the Role end
+    raw: date > /home/yahoo/endrole.log
+
