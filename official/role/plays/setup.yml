@@ -1,0 +1,13 @@
+--- # Setup the cluster for common softwares
+- hosts: master
+  user: yahoo
+  become: yes
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+  - name: Install the git pakage
+    yum: 
+      name: git
+      state: present
+
