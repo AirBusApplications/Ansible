@@ -1,0 +1,13 @@
+--- # Use this to install basic Softwares
+- hosts: remote
+  user: yahoo
+  become: yes
+  connection: ssh
+  gather_facts: no
+
+
+
+  roles:
+    - pcloud.install
+    - geerlingguy.pip
+  

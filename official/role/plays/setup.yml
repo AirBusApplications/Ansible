@@ -1,13 +1,67 @@
 --- # Setup the cluster for common softwares
-- hosts: master
+- hosts: remote
   user: yahoo
   become: yes
   connection: ssh
   gather_facts: no
 
   tasks:
-  - name: Install the git pakage
-    yum: 
-      name: git
-      state: present
+  - name: Disable swap
+    shell: swapoff -a
+    tags:
+    - predeploy
+  
+  - name: Keep the Swap disabled even after the server Restart
+    shell: sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+    tags: 
+    - predeploy
 
+  - name: Create kubernetes directories for Local-Volume
+    file: 
+     path: /DATA/k8s-data/disks
+     state: directory
+     recurse: yes
+    async: 60
+    poll: 60
+    tags: 
+    - volume
+
+  - name: Remove Agent Forwarding protection
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: "AllowTcpForwarding no"
+      state: absent
+    tags: 
+    - predeploy
+ 
+  - name: Remove Permit Tunnel protection
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: "PermitTunnel no"
+      state: absent
+    tags:
+    - predeploy
+
+  - name: Insert AllowTcpForwarding protection
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      line: "AllowTcpForwarding yes"
+      insertafter: "^#AllowAgent*"
+    tags:
+    - predeploy
+  
+  - name: Insert PermitTunnel protection
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      line: "PermitTunnel yes"
+      insertafter: "^#Permit*"
+    tags:
+    - predeploy
+
+  - name: Restart sshd
+    systemd:
+      name: sshd
+      state: restarted
+      daemon-reload: yes
+    tags:
+    - predeploy

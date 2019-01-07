@@ -1,0 +1,30 @@
+# Basic Software packages
+
+- name: Install EPEL-REPO
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+  #when: ansible_os_family == "RedHat"
+
+- name: Installing  various packages
+  yum: 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - mc
+    - python-devel
+    - gcc-c++
+    - iotop
+    - ansible
+
+- name: Installing pip
+  easy_install:
+    name: pip
+    state: present
+
+- name: upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
