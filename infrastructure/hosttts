@@ -2,13 +2,13 @@
 localhost
 
 [remote]
-3.83.175.103 
+#3.83.175.103 
 
 
 [master]
-#3.82.193.45 kubernetes_role="master"
+3.81.225.37 kubernetes_role="master"
 
 [node]
-#3.83.175.103 kubernetes_role="node"
+3.80.149.138 kubernetes_role="node"
 #3.86.223.182 kubernetes_role="node"
 

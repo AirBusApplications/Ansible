@@ -29,6 +29,13 @@
     dest: ~/.kube/config
     state: link
 
+- name: Setup the Kubectl for non_root_user
+  shell: |
+    cp /etc/kubernetes/admin.conf $HOME/
+    chown $(id -u):$(id -g) $HOME/
+    export KUBECONFIG=$HOME/admin.conf    
+  register: non_root_user_setup
+
 - name: Configure Flannel networking.
   command: "{{ item }}"
   with_items:

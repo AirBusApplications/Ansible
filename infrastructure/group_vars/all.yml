@@ -1,0 +1,14 @@
+---
+ansible_become: true
+ansible_connection: ssh
+ansible_user: yahoo
+ansible_ssh_pass: 'yahoo'
+
+ansible_become_method: su
+ansible_become_pass: '{{ansible_ssh_pass}}'
+ansible_become_exe: 'sudo -p "Password: " su - '
+ansible_python_interpreter: '{{ansible_playbook_python}}'
+
+non_root_user: yahoo
+
+

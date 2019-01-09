@@ -1,5 +1,5 @@
 --- # Use this to install basic Softwares
-- hosts: remote
+- hosts: master,node
   user: yahoo
   become: yes
   connection: ssh
