@@ -1,4 +1,26 @@
 ansible_become: true
 ansible_connection: ssh
 ansible_user: yahoo 
+ansible_ssh_pass: 'yahoo'
 ansible_gather_facts: yes
+
+kubernetes_allow_pods_on_master: true
+kubernetes_enable_web_ui: true
+kubernetes_web_ui_manifest_file: https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+kubernetes_pod_network_cidr: '10.244.0.0/16'
+kubernetes_apiserver_advertise_address: ''
+kubernetes_version_kubeadm: 'stable-{{ kubernetes_version }}'
+kubernetes_ignore_preflight_errors: 'all'
+kubernetes_yum_arch: x86_64
+kubernetes_flannel_manifest_file_rbac: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+kubernetes_flannel_manifest_file: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+
+docker_edition: 'ce'
+docker_package: "docker-{{ docker_edition }}"
+docker_package_state: present
+docker_service_state: started
+docker_service_enabled: true
+docker_restart_handler_state: restarted
+docker_users:
+  - "{{ansible_user}}"

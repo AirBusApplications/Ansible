@@ -3,7 +3,7 @@
 3.83.240.206
 
 [k8s-nodes]
-18.215.146.128
+18.206.137.161
 
 [cluster:children]
 k8s-master

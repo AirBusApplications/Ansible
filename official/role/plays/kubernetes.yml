@@ -1,26 +1,11 @@
 --- 
-- hosts: all 
-  user:  "{{non_root_user}}"
-  become: "{{ansible_become}}"
-  connection: "{{ansible_connection}}"
-  gather_facts: yes
+- hosts: cluster
 
-  vars:
-    kubernetes_allow_pods_on_master: true
-    kubernetes_enable_web_ui: true
-    kubernetes_web_ui_manifest_file: https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
-    kubernetes_pod_network_cidr: '10.244.0.0/16'
-    kubernetes_apiserver_advertise_address: ''
-    kubernetes_version_kubeadm: 'stable-{{ kubernetes_version }}'
-    kubernetes_ignore_preflight_errors: 'all'
-    kubernetes_yum_arch: x86_64
-    kubernetes_flannel_manifest_file_rbac: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
-    kubernetes_flannel_manifest_file: https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-
+  
   tasks:
   - name: Set the IPtables value to 1
     shell: echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
   roles:
-    #- geerlingguy.docker
+    - geerlingguy.docker
     - geerlingguy.kubernetes 
