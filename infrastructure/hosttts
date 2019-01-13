@@ -1,14 +1,11 @@
-[local]
-localhost
+[k8s-master]
+35.175.235.114
+3.83.240.206
 
-[remote]
-#3.83.175.103 
+[k8s-nodes]
+18.215.146.128
 
-
-[master]
-3.81.225.37 kubernetes_role="master"
-
-[node]
-3.80.149.138 kubernetes_role="node"
-#3.86.223.182 kubernetes_role="node"
+[cluster:children]
+k8s-master
+k8s-nodes
 

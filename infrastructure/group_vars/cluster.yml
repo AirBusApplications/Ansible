@@ -1,0 +1,4 @@
+ansible_become: true
+ansible_connection: ssh
+ansible_user: yahoo 
+ansible_gather_facts: yes

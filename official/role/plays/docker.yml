@@ -1,5 +1,5 @@
 --- 
-- hosts: master, node 
+- hosts: all 
   user: "{{non_root_user}}"
   become: "{{ansible_become}}"
   connection: "{{ansible_connection}}"

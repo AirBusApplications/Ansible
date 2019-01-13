@@ -12,11 +12,11 @@
     state: present
   with_items:
     - git
-    - mc
+  #  - mc
     - python-devel
-    - gcc-c++
-    - iotop
-    - ansible
+  #  - gcc-c++
+  #  - iotop
+  #  - ansible
 
 - name: Installing pip
   easy_install:

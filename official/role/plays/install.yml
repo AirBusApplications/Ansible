@@ -1,11 +1,5 @@
 --- # Use this to install basic Softwares
-- hosts: master,node
-  user: yahoo
-  become: yes
-  connection: ssh
-  gather_facts: no
-
-
+- hosts: cluster
 
   roles:
     - pcloud.install
