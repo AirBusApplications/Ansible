@@ -29,13 +29,6 @@
     dest: ~/.kube/config
     state: link
 
-- name: Setup the Kubectl for non_root_user
-  shell: |
-    cp /etc/kubernetes/admin.conf /home/yahoo/
-    chown $(id -u):$(id -g) /home/yahoo/
-    export KUBECONFIG=/home/yahoo/admin.conf    
-  register: non_root_user_setup
-
 - name: Configure Flannel networking.
   command: "{{ item }}"
   with_items:
@@ -64,3 +57,4 @@
   when:
     - kubernetes_enable_web_ui
     - kubernetes_dashboard_service is failed
+

@@ -1,8 +1,9 @@
-ansible_become: true
+ansible_become: true 
 ansible_connection: ssh
 ansible_user: yahoo 
 ansible_ssh_pass: 'yahoo'
 ansible_gather_facts: yes
+non_root_user: '{{ansible_user}}'
 
 kubernetes_allow_pods_on_master: true
 kubernetes_enable_web_ui: true
