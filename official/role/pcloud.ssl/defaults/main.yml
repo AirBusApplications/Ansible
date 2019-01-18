@@ -1,0 +1,5 @@
+# Defaults for openssl
+
+openssl_dir: /etc/ssl
+openssl_private_dir: "{{openssl_dir}}/private/"
+openssl_csr_dir: "{{openssl_dir}}/csr/"

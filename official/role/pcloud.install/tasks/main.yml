@@ -28,3 +28,7 @@
     name: '*'
     state: latest
 
+- name: Install PyOpenSSL
+  pip: 
+    name: pyopenssl
+    state: latest 

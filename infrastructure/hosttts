@@ -1,10 +1,15 @@
 [k8s-master]
-3.86.196.134
+
 
 [k8s-nodes]
-3.85.56.86
+
 
 [cluster:children]
 k8s-master
 k8s-nodes
+remote-server
+
+
+[remote-server]
+172.31.85.212
 

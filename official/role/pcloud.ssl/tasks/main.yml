@@ -1,0 +1,25 @@
+# Generate the Private key and the CSR 
+- name: Creates a directory for private key if it does not exist
+  file:
+    path: "{{openssl_private_dir}}"
+    state: directory 
+
+- name: Generate Private key if it doesnot exist
+  openssl_privatekey:
+    path: "{{openssl_private_dir}}{{ansible_hostname}}.pem"
+    size: 2048
+
+- name: Create a directory for CSR if it does not exist
+  file:
+    path: "{{openssl_csr_dir}}"
+    state: directory
+
+- name: Generate CSR for fully qualified hostname .eu.airbus.corp
+  openssl_csr:
+    path: "{{openssl_private_dir}}{{ansible_hostname}}.csr" 
+    privatekey_path: "{{openssl_private_dir}}{{ansible_hostname}}.pem"
+    subject:
+      C: DE
+      O: European Aeronautic Defence and Space Company
+      OU: [Devices, Airbus]
+      CN: "{{ansible_hostname}}.eu.airbus.corp"
